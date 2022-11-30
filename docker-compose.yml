@@ -1,0 +1,27 @@
+version: '3'
+services:
+
+  php:
+    build: .docker/php
+    working_dir: /var/www/php
+    command: php -S 0.0.0.0:8080
+    volumes:
+      - ./:/var/www/php
+      - ./.docker/php/config/docker-post-max-size.ini:/usr/local/etc/php/php.ini
+    ports:
+      - 8080:8080
+    depends_on:
+      - mongo
+
+  database:
+    image: 'mongo'
+    container_name: 'mongo-docker'
+    environment:
+      - MONGO_INITDB_DATABASE=firstmongodb
+      - MONGO_INITDB_USERNAME = root
+      - MONGO_INITDB_PASSWORD = rootpassword
+    volumes:
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+      - ./mongo-volume:/data/db
+    ports:
+      - '27017-27019:27017-27019'
