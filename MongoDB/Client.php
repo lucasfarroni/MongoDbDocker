@@ -11,4 +11,8 @@ class Client
     public function __construct(string $string)
     {
     }
+
+    public function selectDatabase(string $string)
+    {
+    }
 }

@@ -2,7 +2,8 @@ version: '3'
 services:
 
   php:
-    build: .docker/php
+    build:
+        context: ./
     working_dir: /var/www/php
     command: php -S 0.0.0.0:8080
     volumes:
